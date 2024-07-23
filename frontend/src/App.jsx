@@ -1,13 +1,27 @@
 import { useState } from 'react'
+import { Route, Routes } from 'react-router-dom';
 import './App.css'
-
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import Home from './pages/Home'
+import Dice from './pages/Dice';
 function App() {
  
 
   return (
-    <div className='underline'>
-      <h1>asadad</h1>
-    </div>
+    <>
+      <Navbar />
+      <Routes>
+         <Route path='/' element={<Home/>} />
+         <Route path='/game/dice' element={<Dice/>} />
+
+         
+       </Routes>
+      <Footer />
+      
+      
+
+    </>
   )
 }
 
