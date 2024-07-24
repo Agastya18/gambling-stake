@@ -63,12 +63,13 @@ const Dice = () => {
 
     const handleSubmit = async () => {
       try {
-        const response = await axios.post('/api/game/dice', {
-          betAmount,
-          multiplier,
-          rollOver,
-        });
-        console.log(response.data);
+        // const response = await axios.post('/api/game/dice', {
+        //   betAmount,
+        //   multiplier,
+        //   rollOver,
+        // });
+        // console.log(response.data);
+        console.log("betAmount",betAmount,"multiplier",multiplier,"rollOver",rollOver)
       } catch (error) {
         console.error(error);
       }

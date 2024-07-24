@@ -5,6 +5,8 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Dice from './pages/Dice';
+import Login from './pages/Login';
+import Signup from  './pages/Signup'
 function App() {
  
 
@@ -14,6 +16,8 @@ function App() {
       <Routes>
          <Route path='/' element={<Home/>} />
          <Route path='/game/dice' element={<Dice/>} />
+          <Route path='/login' element={<Login/>} />
+          <Route path='/signup' element={<Signup/>} />
 
          
        </Routes>
