@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "this is backends for stake gambling",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "dev": " nodemon backend/server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "agastya gaur",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
