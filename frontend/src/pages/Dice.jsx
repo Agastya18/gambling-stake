@@ -1,5 +1,4 @@
-import Toss from "../components/Toss"
-import Slider from "../components/Slider"
+import axios from 'axios';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import '../components/style.css';
@@ -62,13 +61,26 @@ const Dice = () => {
       setProfitOnWin(betAmount * newMultiplier);
     };
 
+    const handleSubmit = async () => {
+      try {
+        const response = await axios.post('/api/game/dice', {
+          betAmount,
+          multiplier,
+          rollOver,
+        });
+        console.log(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+      
    
     
   
   
   return (
     <div className="bg-gray-900 min-h-screen ">
-      <h1 className="text-3xl text-center text-white ">Dice</h1>
+      <h1 className="text-3xl text-center  font-bold text-white ">Dice</h1>
      
   <div className="flex w-full flex-col lg:flex-row ">
   <div className="card bg-gray-800 rounded-box grid h-[600px] flex-grow lg:flex-grow-0 lg:w-1/4 place-items-center">
@@ -87,7 +99,7 @@ const Dice = () => {
     <input value={Math.floor(profitOnWin)} readOnly type="number" className="bg-gray-200 input input-bordered" placeholder="0"/>
   </label>
 
-  <button className="btn btn-wide  btn-success">Bet</button>
+  <button onClick={handleSubmit} className="btn btn-wide  btn-success">Bet</button>
   
   </div>
   
@@ -99,7 +111,7 @@ const Dice = () => {
 
   <div className=" mb-10">
   <div className="">
-       <div className="text-white font-mono font-bold text-center mb-4 mt-10">Roll!!</div>
+       <div className="text-white  font-serif font-bold text-center mb-4 mt-10 ">Roll!!</div>
        <div className=" bg-gray-900 p-6  rounded-xl">
        <div className="  text-orange-200 md:flex  md:justify-between">
         <div>0</div>
