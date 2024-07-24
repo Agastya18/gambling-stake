@@ -1,11 +1,12 @@
 import React from 'react';
-
+import stake from '../assets/stak.svg'
 function Navbar() {
   return (
     
     <div className="navbar bg-gray-800">
   <div className="flex-1">
-    <a className="btn btn-ghost text-xl  text-white">Stake</a>
+   
+    <img src={stake} alt="img" className='h-14 w-18 bg-white rounded-md' />
   </div>
   <div className="flex-none">
     <ul className="menu menu-horizontal px-1 ">

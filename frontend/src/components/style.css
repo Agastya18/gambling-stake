@@ -10,6 +10,7 @@
   .range-slider {
     width: 700px;
     margin: 24px auto 0;
+    background-color: rgb(32, 194, 32);
   }
   
   .range-slider.margin-lg {
@@ -21,11 +22,17 @@
   /* Range Slider as a Single Thumb Slider */
   .single-thumb .range-slider__thumb[data-lower] {
     width: 0;
+   
     
   }
   .single-thumb .range-slider__range {
     border-radius: 6px;
+    background: #ff4141;
   }
+  /* .single-thumb .range-slider__range[data-active] {
+    transform: translate(-50%, -50%) scale(1.25);
+    border: 23px;
+  } */
   
 
   
