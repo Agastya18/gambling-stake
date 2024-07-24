@@ -5,6 +5,7 @@ const Home = () => {
     <div className="bg-gray-900 text-white min-h-screen ">
         {/* <Carousel/> */}
        
+       
     <Card/>
       
     </div>

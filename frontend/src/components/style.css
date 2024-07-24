@@ -1,0 +1,60 @@
+.title {
+    user-select: none;
+    color: #fff;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+    margin: 42px auto 0;
+  }
+  
+  .range-slider {
+    width: 700px;
+    margin: 24px auto 0;
+  }
+  
+  .range-slider.margin-lg {
+    margin: 42px auto 0;
+  }
+  
+ 
+  
+  /* Range Slider as a Single Thumb Slider */
+  .single-thumb .range-slider__thumb[data-lower] {
+    width: 0;
+    
+  }
+  .single-thumb .range-slider__range {
+    border-radius: 6px;
+  }
+  
+
+  
+  @media (max-width: 768px) {
+    .title {
+      font-size: 1.25rem; /* Smaller font size for tablets */
+    }
+  
+    .range-slider {
+      max-width: 100%;
+      margin: 24px auto 0;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 1rem; /* Even smaller font size for mobile */
+    }
+  
+    .range-slider {
+      width: 100%;
+      margin: 16px auto 0;
+    }
+  
+    .single-thumb .range-slider__thumb[data-lower] {
+      width: 0;
+    }
+  
+    .single-thumb .range-slider__range {
+      border-radius: 4px;
+    }
+  }
