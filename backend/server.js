@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute.js'
 import cookieParser from 'cookie-parser';
-
+import walletRoute from './routes/walletRoute.js'
 dotenv.config();
 const app = express();
 app.use(cookieParser());
@@ -15,6 +15,7 @@ const PORT= process.env.PORT || 5000;
 //     res.send('Server is ready');
 // });
 app.use('/api', userRoute);
+app.use('/api/wallet', walletRoute);
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
