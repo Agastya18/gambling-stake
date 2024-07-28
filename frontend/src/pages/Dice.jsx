@@ -2,14 +2,78 @@ import axios from 'axios';
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import '../components/style.css';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
+import { styled } from '@mui/material/styles';
 import { useState,useEffect } from 'react';
+
+const GreenSlider = styled(Slider)(({ theme }) => ({
+  color: '#f44336',  // Set the color to green
+  height: 8,
+  '& .MuiSlider-thumb': {
+    height: 24,
+    width: 24,
+    backgroundColor: '#2196f3',
+    border: '2px solid currentColor',
+   
+    '&:focus, &:hover, &.Mui-active': {
+      boxShadow: 'inherit',
+    },
+  },
+  '& .MuiSlider-track': {
+    height: 12,
+  },
+  '& .MuiSlider-rail': {
+    color: '#4caf50',
+    opacity: 1,
+    height: 8,
+  },
+  '& .MuiSlider-mark': {
+    backgroundColor: '#ffffff', // White color for the marks
+    height: 8,
+    width: 1,
+    marginTop: -4,
+  },
+  '& .MuiSlider-markActive': {
+    backgroundColor: '#4caf50',
+  },
+}));
+const marks = [
+  {
+    value: 0,
+    label: '0',
+  },
+  {
+    value: 25,
+    label: '25',
+  },
+  {
+    value: 50,
+    label: '50',
+  },
+  {
+    value: 75,
+    label: '75',
+  },
+  {
+    value: 100,
+    label: '100',
+  },
+];
+
+function valuetext(value) {
+  return `${value}°C`;
+}
+
 const Dice = () => {
+  
 
   const [betAmount, setBetAmount] = useState(0);
   const [profitOnWin, setProfitOnWin] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [rollOver, setRollOver] = useState(50);
   const [winChance, setWinChance] = useState(50);
+  console.log("rollOver",rollOver)
   const calculateValues = (multiplier) => {
     const winChance = Math.floor(100 / multiplier);
     const rollOver = 100 - winChance;
@@ -51,15 +115,15 @@ const Dice = () => {
     setProfitOnWin(betAmount * newMultiplier);
     };
   
-    const handleRangeSliderChange = (value) => {
-      const newRollOver = Math.floor(value[1]);
-      setRollOver(newRollOver);
-      const newWinChance = 100 - newRollOver;
-      setWinChance(newWinChance);
-      const newMultiplier = Math.floor(100 / newWinChance);
-      setMultiplier(newMultiplier);
-      setProfitOnWin(betAmount * newMultiplier);
-    };
+    // const handleRangeSliderChange = (value) => {
+    //   const newRollOver = Math.floor(value);
+    //   setRollOver(newRollOver);
+    //   const newWinChance = 100 - newRollOver;
+    //   setWinChance(newWinChance);
+    //   const newMultiplier = Math.floor(100 / newWinChance);
+    //   setMultiplier(newMultiplier);
+    //   setProfitOnWin(betAmount * newMultiplier);
+    // };
 
     const handleSubmit = async () => {
       try {
@@ -110,7 +174,7 @@ const Dice = () => {
   <div className="card bg-gray-800 rounded-box grid h-[600px]  flex-grow lg:flex-grow-0 lg:w-3/4 place-items-center">
 
 
-  <div className=" mb-10">
+  {/* <div className=" mb-10">
   <div className="">
        <div className="text-white  font-serif font-bold text-center mb-4 mt-10 ">Roll!!</div>
        <div className=" bg-gray-900 p-6  rounded-xl">
@@ -140,7 +204,35 @@ const Dice = () => {
        </div>
       
     </div>
-  </div>
+  </div> */}
+  <Box  sx={{ 
+        width: '100%', 
+        maxWidth: '850px', 
+        padding: '16px',
+        '@media (min-width: 600px)': {
+          maxWidth: '600px',
+        },
+        '@media (min-width: 960px)': {
+          maxWidth: '800px',
+        },
+        '@media (min-width: 1280px)': {
+          maxWidth: '850px',
+        },
+        margin: 'auto' }}>
+  <GreenSlider
+    defaultValue={50}
+    getAriaValueText={valuetext}
+    valueLabelDisplay="on"
+    step={1}
+    marks={marks}
+    min={0}
+    max={100}
+    onChange={handleRollOverChange}
+    value={rollOver}
+   
+  
+  />
+</Box>
 
 
   <div className=" md:flex gap-3 ">

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { Signup,Login,getUser } from "../controllers/userController.js";
+import { Signup,Login,getUser,Logout } from "../controllers/userController.js";
 //import { verifyUser } from "../middleware/protectRoute";
 
  const router = Router();
@@ -7,6 +7,7 @@ import { Signup,Login,getUser } from "../controllers/userController.js";
      router.route('/get-user').get(getUser)
     router.route('/signup').post(Signup)
     router.route('/login').post(Login);
+    router.route('/logout').get(Logout);
 //  router.route('/create').post(createUser)
  
 

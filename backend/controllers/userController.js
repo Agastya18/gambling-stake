@@ -127,3 +127,16 @@ export const Login = async (req, res) => {
     const users = await prisma.user.findMany();
     res.json(users);
   }
+
+  export const Logout = async(req, res) =>{
+
+   try {
+    res.clearCookie("authtoken");
+  
+    res.status(200).json({message: "User logged out successfully"});
+    
+   } catch (error) {
+      console.log(error)
+    
+   }
+  }

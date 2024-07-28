@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { useStore } from '../zustand/store'
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
+  const {setAuthUser} = useStore()
+  const navigate = useNavigate();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -10,7 +14,10 @@ const Signup = () => {
          }
          try {
             const {data} = await axios.post('/api/signup', {username, password})
-            console.log(data)
+            localStorage.setItem('userInfo', JSON.stringify(data))
+            setAuthUser(data)
+            navigate('/')
+           // console.log(data)
           
          } catch (error) {
            console.log(error)
