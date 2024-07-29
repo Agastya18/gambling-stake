@@ -15,20 +15,14 @@ const Transfer = () => {
   
 //console.log(transactions)
   const getTransactions = async () => {
-    const response = await axios.get("http://localhost:3000/wallet/get-transactions",{
-      withCredentials: true
-    
-    });
+    const response = await axios.get("/api/wallet/get-transactions");
     setTransactions(response.data);
    // console.log(response.data)
   }
 
   const getBalance = async () => {
-    const resp = await axios.get("http://localhost:3000/wallet/get-balance",{
-      withCredentials: true
-    
-    });
-    //console.log(response)
+    const resp = await axios.get("/api/wallet/get-balance");
+    console.log(resp)
     setAmount(resp.data.balance.amount);
   
   }
@@ -42,7 +36,7 @@ const Transfer = () => {
  
   return (
     <Layout>
-      <div className="w-screen ">
+      <div className="w-screen  ">
        
         <div className="text-4xl text-[#6a51a6] pt-8 mb-8 font-bold">
             Transfer

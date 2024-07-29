@@ -5,59 +5,45 @@ import { Card } from "./cards";
 import { Select } from "./Select";
 import { TextInput } from "./TextInput";
 import axios from "axios";
-
+import { useStore } from "../zustand/store";
 
 const SUPPORTED_BANKS = [{
     name: "Razorpay",
-    redirectUrl: "https://netbanking.hdfcbank.com"
+  //  redirectUrl: "https://netbanking.hdfcbank.com"
 }];
 
 
 
 export const AddMoney = () => {
+    const{authUser} = useStore();
 
 
     const [amount,setAmount] = useState(0);
     const [name, setName] = useState(SUPPORTED_BANKS[0]?.name);
 
     const addMoney = async (amount,name) => {
-        const resp= await axios.post("http://localhost:3000/wallet", {
+        const resp= await axios.post("/api/wallet/onramp", {
             amount: amount,
             provider: name
-        },{
-            withCredentials: true
-        
         });
-        console.log(resp);
-        //refesh page
+        console.log("onramp data--",resp);
+        
         //window.location.reload();
         try {
-            const {data:orders} = await axios.post("http://localhost:3000/wallet/checkout-page", {
-            amount: amount,
+     const {data:orders} = await axios.post("/api/wallet/checkout", {
+            amount: resp.data.transaction.amount,
            
-        },{
-            withCredentials: true
-        
         });
         console.log("this is orders frontend",orders);
-        //console.log(orders.order);
-      //  console.log(orders.order.amount);
-        //refesh page
-       // window.location.reload();
-    //    const resp = await axios.get("http://localhost:3000/wallet",{
-    //         withCredentials: true
-            
-            
-    //     });
-    //     console.log("this is resp",resp);
+      
 
        const options = {
         // key: import.meta.env.RAZORPAY_API_KEY,
-        key: "rzp_test_1DP5mmOlF5G5ag",
+        key: import.meta.env.RAZORPAY_API_KEY,
         amount: orders.order.amount,
         currency: orders.order.currency,
         name: 'Stake-gambling',
-        description: 'Test Transaction stake',
+        description: 'deposit money on wallet',
         order_id: orders.order.id,
         handler: function (response) {
             console.log(response);
@@ -65,9 +51,8 @@ export const AddMoney = () => {
 
         },
         prefill: {
-            name: 'agastya',
-            email: 'email@example.com',
-            contact: '9999999999'
+            name: authUser?.user.username,
+            
         },
         theme: {
             color: '#3399cc'

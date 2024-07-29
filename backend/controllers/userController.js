@@ -30,15 +30,15 @@ export const Signup = async (req, res) => {
           data: {
             username,
             password: hashPassword,
-            // Balance: {
-            //   create: [
-            //     {
-            //       amount: 0,
-            //       locked: 0
+            Balance: {
+              create: [
+                {
+                  amount: 0,
+                  locked: 0
                   
-            //     },
-            //   ],
-            // },
+                },
+              ],
+            },
   
   
   

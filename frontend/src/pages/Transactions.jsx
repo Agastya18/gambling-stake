@@ -5,13 +5,9 @@ import Layout from "../components/Layout";
 const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const getTransactions = async () => {
-        const response = await axios.get("http://localhost:3000/wallet/get-transactions",{
-            withCredentials: true
-            
-            
-        });
+        const response = await axios.get("/api/wallet/get-transactions");
         setTransactions(response.data);
-        console.log(response.data)
+       // console.log(response.data)
       }
 
       useEffect(() => {

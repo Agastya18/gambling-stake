@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import RangeSlider from 'react-range-slider-input';
 import 'react-range-slider-input/dist/style.css';
 import '../components/style.css';
@@ -6,6 +7,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import { useState,useEffect } from 'react';
+import { useStore } from '../zustand/store';
 
 const GreenSlider = styled(Slider)(({ theme }) => ({
   color: '#f44336',  // Set the color to green
@@ -66,6 +68,7 @@ function valuetext(value) {
 }
 
 const Dice = () => {
+  const {setBalance,balance}= useStore()
   
 
   const [betAmount, setBetAmount] = useState(0);
@@ -133,7 +136,12 @@ const Dice = () => {
         //   rollOver,
         // });
         // console.log(response.data);
-        console.log("betAmount",betAmount,"multiplier",multiplier,"rollOver",rollOver)
+       // console.log("betAmount",betAmount,"multiplier",multiplier,"rollOver",rollOver)
+        
+      //   const resp = await axios.get("/api/wallet/get-balance");
+        
+      //  setBalance(resp.data.balance.amount);
+
       } catch (error) {
         console.error(error);
       }
