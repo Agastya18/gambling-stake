@@ -31,7 +31,7 @@ export const checkout = async (req, res) => {
     
   const {amount}= req.body
   const options = {
-      amount: Number(amount * 100),
+      amount: Math.floor(amount) , // amount in the smallest currency unit
       currency: "INR",
      // receipt:crypto.randomBytes(4).toString('hex'),
         notes: {

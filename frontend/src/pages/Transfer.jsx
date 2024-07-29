@@ -5,32 +5,39 @@ import { OnRampTransactions } from "../components/OnRampTransactions";
 import axios from "axios";
 import { useState,useEffect } from "react";
 
-
+import { useStore } from "../zustand/store";
 
 
 
 const Transfer = () => {
+  const {setBalance,balance} = useStore();
   const [transactions, setTransactions] = useState([]);
   const [amount, setAmount] = useState();
   
 //console.log(transactions)
-  const getTransactions = async () => {
-    const response = await axios.get("/api/wallet/get-transactions");
-    setTransactions(response.data);
-   // console.log(response.data)
-  }
-
-  const getBalance = async () => {
-    const resp = await axios.get("/api/wallet/get-balance");
-    console.log(resp)
-    setAmount(resp.data.balance.amount);
   
-  }
+
+  
+  useEffect(() => {
+    const getTransactions = async () => {
+      const response = await axios.get("/api/wallet/get-transactions");
+      setTransactions(response.data);
+     // console.log(response.data)
+    }
+    getTransactions();
+  }, []);
 
   useEffect(() => {
-    getTransactions();
+    const getBalance = async () => {
+      const resp = await axios.get("/api/wallet/get-balance");
+      console.log(resp)
+     // setAmount(resp.data.balance.amount);
+      setBalance(resp.data.balance.amount);
+  
+    
+    }
     getBalance();
-  }, []);
+  }, [setBalance]);
 
   //console.log("trasfer amount",amount)
  
@@ -46,7 +53,7 @@ const Transfer = () => {
                 <AddMoney />
             </div>
             <div>
-                <BalanceCard amount={amount || 0} locked={0} />
+                <BalanceCard amount={balance || 0} locked={0} />
                 <div className="pt-4">
                     <OnRampTransactions transactions={transactions} />
                 </div>

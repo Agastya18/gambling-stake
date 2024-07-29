@@ -128,14 +128,26 @@ const Dice = () => {
     //   setProfitOnWin(betAmount * newMultiplier);
     // };
 
+    useEffect(() => {
+      const getBalance = async () => {
+        const resp = await axios.get("/api/wallet/get-balance");
+        console.log(resp)
+       setBalance(resp.data.balance.amount);
+       
+     
+      }
+      getBalance();
+    })
+
     const handleSubmit = async () => {
       try {
-        // const response = await axios.post('/api/game/dice', {
-        //   betAmount,
-        //   multiplier,
-        //   rollOver,
-        // });
-        // console.log(response.data);
+        const response = await axios.post('/api/game/dice', {
+          betAmount,
+          multiplier,
+          rollOver,
+        });
+        setBalance(response.data.newBalance);
+        console.log("game result",response.data);
        // console.log("betAmount",betAmount,"multiplier",multiplier,"rollOver",rollOver)
         
       //   const resp = await axios.get("/api/wallet/get-balance");

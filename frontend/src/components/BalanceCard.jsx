@@ -7,7 +7,7 @@ export const BalanceCard = ({amount, locked}) => {
                 Unlocked balance
             </div>
             <div>
-                {amount / 100} INR
+                {amount } INR
                 {/* {amount } INR */}
             </div>
         </div>
