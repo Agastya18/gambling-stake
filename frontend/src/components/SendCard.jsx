@@ -10,7 +10,7 @@ import { TextInput } from "./TextInput";
 export function SendCard() {
     const [number, setNumber] = useState("");
     const [amount, setAmount] = useState("");
-    console.log(number)
+   // console.log(number)
 
     return <div className="h-[90vh]">
         <Center>

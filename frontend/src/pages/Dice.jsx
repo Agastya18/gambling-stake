@@ -8,6 +8,7 @@ import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
 import { useState,useEffect } from 'react';
 import { useStore } from '../zustand/store';
+import Table from '../components/Table';
 
 const GreenSlider = styled(Slider)(({ theme }) => ({
   color: '#f44336',  // Set the color to green
@@ -68,15 +69,15 @@ function valuetext(value) {
 }
 
 const Dice = () => {
-  const {setBalance,balance}= useStore()
-  
-
+  const {setBalance,balance,authUser,setGames , Games}= useStore()
+  const [getgames,setGetGames] =useState([])
+ // console.log(getgames)
   const [betAmount, setBetAmount] = useState(0);
   const [profitOnWin, setProfitOnWin] = useState(0);
   const [multiplier, setMultiplier] = useState(1);
   const [rollOver, setRollOver] = useState(50);
   const [winChance, setWinChance] = useState(50);
-  console.log("rollOver",rollOver)
+ 
   const calculateValues = (multiplier) => {
     const winChance = Math.floor(100 / multiplier);
     const rollOver = 100 - winChance;
@@ -118,45 +119,58 @@ const Dice = () => {
     setProfitOnWin(betAmount * newMultiplier);
     };
   
-    // const handleRangeSliderChange = (value) => {
-    //   const newRollOver = Math.floor(value);
-    //   setRollOver(newRollOver);
-    //   const newWinChance = 100 - newRollOver;
-    //   setWinChance(newWinChance);
-    //   const newMultiplier = Math.floor(100 / newWinChance);
-    //   setMultiplier(newMultiplier);
-    //   setProfitOnWin(betAmount * newMultiplier);
-    // };
 
     useEffect(() => {
+     // console.log(Games)
       const getBalance = async () => {
         const resp = await axios.get("/api/wallet/get-balance");
-        console.log(resp)
+      //  console.log(resp)
        setBalance(resp.data.balance.amount);
        
      
       }
       getBalance();
-    })
+     
+    },[])
+    // const getBalance = async () => {
+    //   const resp = await axios.get("/api/wallet/get-balance");
+    // //  console.log(resp)
+    //  setBalance(resp.data.balance.amount);
+     
+   
+    // }
+   
 
     const handleSubmit = async () => {
-      try {
-        const response = await axios.post('/api/game/dice', {
-          betAmount,
-          multiplier,
-          rollOver,
-        });
-        setBalance(response.data.newBalance);
-        console.log("game result",response.data);
-       // console.log("betAmount",betAmount,"multiplier",multiplier,"rollOver",rollOver)
-        
-      //   const resp = await axios.get("/api/wallet/get-balance");
-        
-      //  setBalance(resp.data.balance.amount);
+      
+      if (parseInt(betAmount) <= balance) {
+        try {
+          const response = await axios.post('/api/game/dice', {
+            betAmount,
+            multiplier,
+            rollOver,
+          });
+          setBalance(response.data.newBalance);
+         // console.log("game result",response.data);
+        // getBalance();
+         
+          const getgame=await axios.get('/api/game/get-games');
+         // setGetGames(getgame.data);
+          setGames(getgame.data);
+          
+         // console.log("getgame",getgame.data);
+        // console.log(Games)
 
-      } catch (error) {
-        console.error(error);
-      }
+  
+        } catch (error) {
+          console.error(error);
+        }
+        
+        
+      } else {
+       window.alert('Insufficient balance in wallet');
+      
+    }
     }
       
    
@@ -168,7 +182,7 @@ const Dice = () => {
       <h1 className="text-3xl text-center  font-bold text-white ">Dice</h1>
      
   <div className="flex w-full flex-col lg:flex-row ">
-  <div className="card bg-gray-800 rounded-box grid h-[600px] flex-grow lg:flex-grow-0 lg:w-1/4 place-items-center">
+  <div className="card bg-gray-800 rounded-box grid h-[700px] flex-grow lg:flex-grow-0 lg:w-1/4 place-items-center">
   
 
   <div className=" flex flex-col gap-3  mb-40 ">
@@ -191,40 +205,8 @@ const Dice = () => {
  
   </div>
   <div className="divider lg:divider-horizontal ">OR</div>
-  <div className="card bg-gray-800 rounded-box grid h-[600px]  flex-grow lg:flex-grow-0 lg:w-3/4 place-items-center">
+  <div className="card bg-gray-800 rounded-box grid h-[700px]  flex-grow lg:flex-grow-0 lg:w-3/4 place-items-center">
 
-
-  {/* <div className=" mb-10">
-  <div className="">
-       <div className="text-white  font-serif font-bold text-center mb-4 mt-10 ">Roll!!</div>
-       <div className=" bg-gray-900 p-6  rounded-xl">
-       <div className="  text-orange-200 md:flex  md:justify-between">
-        <div>0</div>
-      
-        <div className=" ml-3">50</div>
-        <div>100</div>
-       </div>
-      <RangeSlider
-        className="single-thumb  "
-        defaultValue={[0, rollOver]}
-        thumbsDisabled={[true, false]}
-        rangeSlideDisabled={true}
-        
-        
-        
-        
-       
-        
-       onInput={handleRangeSliderChange}
-    
-     
-
-
-      />
-       </div>
-      
-    </div>
-  </div> */}
   <Box  sx={{ 
         width: '100%', 
         maxWidth: '850px', 
@@ -268,6 +250,13 @@ const Dice = () => {
     <span className=" text-white font-bold ">Win Chance%:</span>
     <input type="text" value={winChance} readOnly className="bg-gray-300   input input-bordered" placeholder="0"/>
   </label>
+  </div>
+
+  <div className="  bg-gray-900  rounded-md">
+  {
+    
+    authUser && <Table games={ Games}/> 
+  }
   </div>
 
 

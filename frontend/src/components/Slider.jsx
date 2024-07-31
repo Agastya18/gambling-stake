@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 const Slider = () => {
     const [value, setValue] = useState([]);
-    console.log(value[1])
+   // console.log(value[1])
   return (
     <div>
        <div className="text-white font-mono font-bold text-center mb-10 mt-10">Roll!!</div>

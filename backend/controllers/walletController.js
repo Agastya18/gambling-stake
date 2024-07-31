@@ -5,6 +5,11 @@ import crypto from 'crypto';
 export const OnRampTransactionsUpdated = async (req, res) => {
 
     const { amount, provider } = req.body;
+    if(amount<100 ){
+        return res.status(400).json({
+            message: "Minimum amount is 100"
+        });
+    }
     const token =  crypto.randomBytes(5).toString('hex');
    
     const transaction = await prisma.onRampTransaction.create({
@@ -14,7 +19,7 @@ export const OnRampTransactionsUpdated = async (req, res) => {
             provider: provider,
             token: token,
             userId: req.user.id,
-            startTime: new Date() // Add the startTime property with the current date/time
+            // Add the startTime property with the current date/time
         },
     });
 
@@ -29,23 +34,37 @@ export const OnRampTransactionsUpdated = async (req, res) => {
 }
 export const checkout = async (req, res) => {
     
-  const {amount}= req.body
-  const options = {
-      amount: Math.floor(amount) , // amount in the smallest currency unit
-      currency: "INR",
-     // receipt:crypto.randomBytes(4).toString('hex'),
-        notes: {
-            userId: req.user.id,
-          }
-    
-    };
+try {
+    const {amount}= req.body
+      
+    if(amount<100 ){
+        return res.status(400).json({
+            message: "Minimum amount is 100"
+        });
+    }
 
-    const order = await instance.orders.create(options);
+   // console.log(amount)
+    const options = {
+        amount: Math.floor(amount) , // amount in the smallest currency unit
+        currency: "INR",
+       // receipt:crypto.randomBytes(4).toString('hex'),
+          notes: {
+              userId: req.user.id,
+            }
+      
+      };
   
-    res.status(200).json({
-      success: true,
-      order,
-    });
+      const order = await instance.orders.create(options);
+    
+      res.status(200).json({
+        success: true,
+        order,
+      });
+    
+} catch (error) {
+    console.log(error);
+    
+}
 
 }
 
@@ -98,7 +117,7 @@ export const webhook = async (req, res) => {
 
     // Verify the signature
     if (digest === req.headers['x-razorpay-signature'] ) {
-        console.log('Webhook signature verified');
+      //  console.log('Webhook signature verified');
 
         // Process the webhook payload
         const event = req.body;
@@ -115,7 +134,7 @@ export const webhook = async (req, res) => {
                     userId: event.payload.payment.entity.notes.userId,
                     amount: event.payload.payment.entity.amount
                 };
-              console.log(paymentInformation);
+             // console.log(paymentInformation);
                 try {
                     
                     await prisma.$transaction([

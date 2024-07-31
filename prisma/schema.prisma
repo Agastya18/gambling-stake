@@ -17,6 +17,8 @@ model User {
   password          String
   OnRampTransaction OnRampTransaction[]
   Balance           Balance[]
+  GameTransaction   GameTransaction[]
+  createdAt         DateTime @default(now())
 
 }
 
@@ -26,9 +28,9 @@ model OnRampTransaction {
   token     String       @unique
   provider  String
   amount    Int
-  startTime DateTime
   userId    String
   user      User         @relation(fields: [userId], references: [id])
+  createdAt DateTime     @default(now())
   
 }
 model Balance {
@@ -37,8 +39,21 @@ model Balance {
   amount Int     @default(0)
   locked Int     @default(0)
   user   User @relation(fields: [userId], references: [id])
+  
+
  
 
+}
+model GameTransaction {
+  id         String   @id @default(cuid())
+  status     Boolean
+  betAmount  Int
+  multiplier Int
+  payout     Int
+  userId     String
+  user       User         @relation(fields: [userId], references: [id])
+  createdAt  DateTime     @default(now())
+  
 }
 
 enum OnRampStatus {

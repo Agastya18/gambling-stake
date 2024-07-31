@@ -22,11 +22,15 @@ export const AddMoney = () => {
     const [name, setName] = useState(SUPPORTED_BANKS[0]?.name);
 
     const addMoney = async (amount,name) => {
+        if(amount<100){
+            alert("Minimum amount is 100");
+            return;
+        }
         const resp= await axios.post("/api/wallet/onramp", {
             amount: amount,
             provider: name
         });
-        console.log("onramp data--",resp);
+      //  console.log("onramp data--",resp);
         
         //window.location.reload();
         try {
@@ -34,7 +38,7 @@ export const AddMoney = () => {
             amount: resp.data.transaction.amount,
            
         });
-        console.log("this is orders frontend",orders);
+       // console.log("this is orders frontend",orders);
       
 
        const options = {
@@ -46,7 +50,7 @@ export const AddMoney = () => {
         description: 'deposit money on wallet',
         order_id: orders.order.id,
         handler: function (response) {
-            console.log(response);
+           // console.log(response);
             //alert(response);
 
         },

@@ -3,7 +3,7 @@ import { useStore } from '../zustand/store';
 import stake from '../assets/stak.svg'
 
 import axios from 'axios';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate,Link } from 'react-router-dom';
 function Navbar() {
   const {balance}= useStore()
 
@@ -28,7 +28,9 @@ function Navbar() {
     <div className="navbar bg-gray-800">
   <div className="flex-1">
    
+    <Link to={'/'}>
     <img src={stake} alt="img" className='h-14 w-18 bg-white rounded-md' />
+    </Link>
     {/* <a href="/" className="text-white text-2xl font-bold">
       Stake
     </a> */}

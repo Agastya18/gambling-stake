@@ -13,7 +13,7 @@ export const SidebarItem = ({ href, title, icon }) => {
 
     return <div className={`flex ${selected ? "text-[#6a51a6]" : "text-slate-500"} cursor-pointer  p-2 pl-8`} onClick={() => {
         //router.push(href);
-        console.log("href",href);
+       // console.log("href",href);
         navigate(href);
 
     }}>

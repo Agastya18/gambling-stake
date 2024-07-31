@@ -1,8 +1,9 @@
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
+import { persist} from 'zustand/middleware'
 
-
-export const useStore = create(devtools(
+export const useStore = create(persist(
+  devtools(
     (set) => ({
 
         authUser: localStorage.getItem('userInfo')? JSON.parse(localStorage.getItem('userInfo')) : null,
@@ -12,6 +13,9 @@ export const useStore = create(devtools(
        
        balance:0,
        setBalance: (balance) => set({ balance }),
+
+       Games:[],
+         setGames: (games) => set({ Games: games }),
        
        
        
@@ -19,4 +23,5 @@ export const useStore = create(devtools(
           
          
        })
+),{name:"auth-storage1"}
 ));

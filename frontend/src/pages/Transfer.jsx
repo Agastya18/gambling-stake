@@ -30,7 +30,7 @@ const Transfer = () => {
   useEffect(() => {
     const getBalance = async () => {
       const resp = await axios.get("/api/wallet/get-balance");
-      console.log(resp)
+     // console.log(resp)
      // setAmount(resp.data.balance.amount);
       setBalance(resp.data.balance.amount);
   

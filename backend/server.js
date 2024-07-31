@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from 'dotenv';
 // import cors from 'cors';
+import path from "path"
 import Razorpay from 'razorpay';
 import userRoute from './routes/userRoute.js'
 import cookieParser from 'cookie-parser';
@@ -11,8 +12,8 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-const PORT= process.env.PORT || 5000;
+const __dirname = path.resolve()
+const PORT= process.env.PORT || 8000;
 // app.use(cors(
 
 //     {
@@ -22,9 +23,7 @@ const PORT= process.env.PORT || 5000;
 //     }
 // ));
 
-// app.get('/', (req, res) => {
-//     res.send('Server is ready');
-// });
+
 
 export const instance = new Razorpay({
     key_id: process.env.RAZORPAY_API_KEY || "",
@@ -35,6 +34,17 @@ export const instance = new Razorpay({
 app.use('/api', userRoute);
 app.use('/api/wallet', walletRoute);
 app.use('/api/game', gameRoute);
+
+if (process.env.NODE_ENV !== "development") {
+
+  // Serve static assets from the frontend build directory
+   app.use(express.static(path.join(__dirname, "/frontend/dist")));
+  
+  // Handle all other requests to serve the React app
+   app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+   });
+  }
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
