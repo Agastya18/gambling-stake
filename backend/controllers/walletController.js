@@ -36,7 +36,7 @@ export const checkout = async (req, res) => {
     
 try {
     const {amount}= req.body
-      
+     // console.log("amount",amount)
     if(amount<100 ){
         return res.status(400).json({
             message: "Minimum amount is 100"
@@ -45,9 +45,9 @@ try {
 
    // console.log(amount)
     const options = {
-        amount: Math.floor(amount) , // amount in the smallest currency unit
+        amount:amount , // amount in the smallest currency unit
         currency: "INR",
-       // receipt:crypto.randomBytes(4).toString('hex'),
+        receipt:crypto.randomBytes(4).toString('hex'),
           notes: {
               userId: req.user.id,
             }
@@ -55,6 +55,7 @@ try {
       };
   
       const order = await instance.orders.create(options);
+     // console.log(order);
     
       res.status(200).json({
         success: true,
@@ -75,6 +76,25 @@ export const getOnRampTransactions = async (req, res) => {
         where: {
             userId:req.user.id
         }
+        
+    
+    });
+    res.status(200).json(txns);
+
+
+}
+
+export const get5Transactions = async (req, res) => {
+    
+    const txns = await prisma.onRampTransaction.findMany({
+
+        where: {
+            userId:req.user.id
+        },
+        orderBy: {
+            createdAt: "desc",
+        },
+        take:5,
         
     
     });
@@ -134,7 +154,8 @@ export const webhook = async (req, res) => {
                     userId: event.payload.payment.entity.notes.userId,
                     amount: event.payload.payment.entity.amount
                 };
-             // console.log(paymentInformation);
+            //  const finalPaymentInformation = (event.payload.payment.entity.amount)/100;
+            //   console.log(finalPaymentInformation);
                 try {
                     
                     await prisma.$transaction([
@@ -144,7 +165,7 @@ export const webhook = async (req, res) => {
                             },
                             data: {
                                amount:{
-                                      increment: parseInt(paymentInformation.amount)
+                                      increment: parseInt(paymentInformation.amount)/100
                                  
                                }
                             }

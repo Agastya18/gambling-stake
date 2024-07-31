@@ -20,7 +20,7 @@ const Transfer = () => {
   
   useEffect(() => {
     const getTransactions = async () => {
-      const response = await axios.get("/api/wallet/get-transactions");
+      const response = await axios.get("/api/wallet/get-5-transactions");
       setTransactions(response.data);
      // console.log(response.data)
     }

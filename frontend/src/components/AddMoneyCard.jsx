@@ -35,10 +35,10 @@ export const AddMoney = () => {
         //window.location.reload();
         try {
      const {data:orders} = await axios.post("/api/wallet/checkout", {
-            amount: resp.data.transaction.amount,
+            amount: (resp.data.transaction.amount)*100,
            
         });
-       // console.log("this is orders frontend",orders);
+      //  console.log("this is orders frontend",orders);
       
 
        const options = {
@@ -50,7 +50,7 @@ export const AddMoney = () => {
         description: 'deposit money on wallet',
         order_id: orders.order.id,
         handler: function (response) {
-           // console.log(response);
+          //  console.log("handle func",response);
             //alert(response);
 
         },

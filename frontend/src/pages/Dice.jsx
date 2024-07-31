@@ -155,7 +155,7 @@ const Dice = () => {
         // getBalance();
          
           const getgame=await axios.get('/api/game/get-games');
-         // setGetGames(getgame.data);
+          //setGetGames(getgame.data);
           setGames(getgame.data);
           
          // console.log("getgame",getgame.data);

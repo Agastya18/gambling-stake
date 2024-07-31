@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 import { persist} from 'zustand/middleware'
 
-export const useStore = create(persist(
+export const useStore = create(
   devtools(
     (set) => ({
 
@@ -23,5 +23,5 @@ export const useStore = create(persist(
           
          
        })
-),{name:"auth-storage1"}
-));
+),
+);
