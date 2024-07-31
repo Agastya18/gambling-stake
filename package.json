@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon backend/server.js",
-  "start": "NODE_ENV=production node backend/server.js",
+  "start": "node backend/server.js",
   "build": "npm install && prisma generate --schema=./prisma/schema.prisma && npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
