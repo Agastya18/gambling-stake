@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Request Render
-        run: curl -X GET https://gambling-stake.onrender.com
+        run: curl -X GET https://graphql-expanse-tracker.onrender.com
