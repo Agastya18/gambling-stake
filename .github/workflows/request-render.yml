@@ -4,7 +4,7 @@ name: Request Render
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/60 * * * *"
+    - cron: "*/12 * * * *"
 
 jobs:
   request-render:
