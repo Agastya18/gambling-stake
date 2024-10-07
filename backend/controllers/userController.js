@@ -55,7 +55,7 @@ export const Signup = async (req, res) => {
         res.cookie('authToken', authtoken, {
           httpOnly: true,
           sameSite: "strict",
-          secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+          // secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
           maxAge: 3600000 ,// 1 hour
           
         });
