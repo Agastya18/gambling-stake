@@ -80,7 +80,7 @@ Go to frondend and run
 
 ![App Screenshot](https://i.ibb.co/Drm47sj/s2.png)
 
-![App Screenshot](https://i.ibb.co/r376vR5/2ec.png)
+
 
 
 - Deposit/transaction
