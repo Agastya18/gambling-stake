@@ -72,22 +72,16 @@ Go to frondend and run
 
 ## Screenshots
 
-<<<<<<< HEAD
-=======
 
-
-
-
->>>>>>> d368723 (add cronjob)
 - games
 ![App Screenshot](https://i.ibb.co/4MfKsJ1/s1.png)
 
 - dice game
-<<<<<<< HEAD
+
 ![App Screenshot](https://i.ibb.co/Drm47sj/s2.png)
-=======
+
 ![App Screenshot](https://i.ibb.co/r376vR5/2ec.png)
->>>>>>> d368723 (add cronjob)
+
 
 - Deposit/transaction
 ![App Screenshot](https://i.ibb.co/4MCZnLt/s3.png)
